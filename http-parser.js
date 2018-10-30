@@ -373,7 +373,7 @@ HTTPParser.prototype.BODY_CHUNKHEAD = function () {
 };
 
 HTTPParser.prototype.BODY_CHUNK = function () {
-  var length = Math.min(this.end - this.offset, this.body_bytes);
+  var length = Math.min(this.end - this.offset, this.body_bytes || Infinity);
   this.userCall()(this[kOnBody](this.chunk, this.offset, length));
   this.offset += length;
   this.body_bytes -= length;
@@ -413,7 +413,7 @@ HTTPParser.prototype.BODY_RAW = function () {
 };
 
 HTTPParser.prototype.BODY_SIZED = function () {
-  var length = Math.min(this.end - this.offset, this.body_bytes);
+  var length = Math.min(this.end - this.offset, this.body_bytes || Infinity);
   this.userCall()(this[kOnBody](this.chunk, this.offset, length));
   this.offset += length;
   this.body_bytes -= length;
